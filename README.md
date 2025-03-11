@@ -52,7 +52,7 @@ Set Up the Domain Controller (Windows Server 2019)
   - Fill in **username, password, and other details**.
   - Adjust properties (group memberships, profiles, etc.) as needed.
   - Bulk User Creation with PowerShell
-    - Create a .txt file named name_list.txt with a random amount of Fname Lname on ./Desktop for ease of access. (10 were created for this project)
+    - Create a .txt file named name_list.txt with a set amount of Fname Lname on ./Desktop for ease of access. (10 were created for this project)
    
 
    In PS use the following commands. ("Yes to all" this will allow scripts to be ran)
