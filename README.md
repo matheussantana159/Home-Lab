@@ -9,7 +9,9 @@ Project stimmed from wanting to test out Active Directory and how to create/mana
   - Oracle VirtualBox
   - Windows 10 ISO
   - Windows Server 2019 ISO
+    
 Set Up the Domain Controller (Windows Server 2019)
+
   - Create a New VM
     - **Name** the VM (Server2019-DC) and select “Windows 2019 (64-bit)”
   - Install Windows Server 2019
@@ -51,51 +53,52 @@ Set Up the Domain Controller (Windows Server 2019)
   - Adjust properties (group memberships, profiles, etc.) as needed.
   - Bulk User Creation with PowerShell
     - Create a .txt file named name_list.txt with a random amount of Fname Lname on ./Desktop for ease of access. (10 were created for this project)
-    - In PS use the following commands.
-  
-  Set-ExecutionPolicy Unrestricted ("Yes to all" this will allow scripts to be ran)
+   
 
-  (The Rest till the end at } can be copied and pasted into PS. Automating account creation tests batch user accounts. The above script will parse the user and make the username, set password and put them in correct OU.
-    Remember, when running the script make sure your in the directory that has the name_list.txt ex. /user/---/Desktop/name_list.txt)
+   In PS use the following commands. ("Yes to all" this will allow scripts to be ran)
   
-  $PASSWORD_FOR_USERS = "Password123
+          Set-ExecutionPolicy Unrestricted
+   (The Rest till the end at } can be copied and pasted into PS. Automating account creation tests batch user accounts. The above script will parse the user and make the username, set password and put them in correct OU.
+   Remember, when running the script make sure your in the directory that has the name_list.txt ex. /user/---/Desktop/name_list.txt)
   
-  $USER_FIRST_LAST_LIST    = Get-Content .\name_list.txt
-  
-  $password = ConvertTo-SecureString $PASSWORD_FOR_USERS -AsPlainText -Force
-  
-  New-ADOrganizationalUnit -Name _USERS -ProtectedFromAccidentalDeletion $false
-  
-  foreach ($n in `$USER_FIRST_LAST_LIST) {
-  
-  $first = $n.Split(" ")[0].ToLower()
-  
-  $last = $n.Split(" ")[1].ToLower()
-  
-  $username = "$($first.Substring(0,1)$(last)".ToLower()
-  
-  Write-Host "Creating user: $($username)" -BackgroundColor Black -ForegroundColor Cyan
-  
-  New-AdUser -AccointPassword $password
-  
-  Given Name $first
-  
-  Surname $last
-  
-  DisplayName $username
-  
-  Name $username
-  
-  EmployeeID $username
-  
-  PasswordNeverExpires $true
-  
-  Path "ou=_USERS,$(([ADSI]' "").distinguishedName)"
-  
-  Enabled $true
-  
-  }
-  
+          $PASSWORD_FOR_USERS = "Password123
+          
+          $USER_FIRST_LAST_LIST = Get-Content .\name_list.txt
+          
+          $password = ConvertTo-SecureString $PASSWORD_FOR_USERS -AsPlainText -Force
+          
+          New-ADOrganizationalUnit -Name _USERS -ProtectedFromAccidentalDeletion $false
+          
+          foreach ($n in `$USER_FIRST_LAST_LIST) {
+          
+          $first = $n.Split(" ")[0].ToLower()
+          
+          $last = $n.Split(" ")[1].ToLower()
+          
+          $username = "$($first.Substring(0,1)$(last)".ToLower()
+          
+          Write-Host "Creating user: $($username)" -BackgroundColor Black -ForegroundColor Cyan
+          
+          New-AdUser -AccointPassword $password
+          
+          Given Name $first
+          
+          Surname $last
+          
+          DisplayName $username
+          
+          Name $username
+          
+          EmployeeID $username
+          
+          PasswordNeverExpires $true
+          
+          Path "ou=_USERS,$(([ADSI]' "").distinguishedName)"
+          
+          Enabled $true
+          
+          }
+      
          
 <h2>Enable NAT and RAS (Routing and Remote Access)</h2>
 
